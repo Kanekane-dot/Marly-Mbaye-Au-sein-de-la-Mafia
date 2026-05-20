@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marly Mbaye — Auteure</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --noir: #0a0a0a;
+    --noir-2: #111111;
+    --noir-3: #1a1a1a;
+    --noir-4: #242424;
+    --or: #c9a84c;
+    --or-pale: #e8d5a3;
+    --or-sombre: #7a6128;
+    --rouge: #8b1a1a;
+    --rouge-vif: #c0392b;
+    --blanc: #f5f0e8;
+    --gris: #555;
+    --gris-clair: #888;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--noir);
+    color: var(--blanc);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 48px;
+    background: rgba(10,10,10,0.95);
+    border-bottom: 0.5px solid #1e1e1e;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--blanc);
+    letter-spacing: 0.1em;
+  }
+
+  .nav-logo span { color: var(--or); font-style: italic; }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--gris-clair);
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--or); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 24px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 60%, rgba(139,26,26,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 50% 40%, rgba(201,168,76,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-ornement {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    color: var(--or);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .hero-ornement::before,
+  .hero-ornement::after {
+    content: '';
+    width: 40px;
+    height: 0.5px;
+    background: var(--or);
+    opacity: 0.5;
+  }
+
+  .hero-titre {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 8vw, 96px);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--blanc);
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.4s;
+  }
+
+  .hero-titre em {
+    color: var(--or);
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .hero-sous-titre {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 3vw, 28px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--gris-clair);
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.6s;
+  }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.8s;
+  }
+
+  .hero-stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--or);
+    display: block;
+  }
+
+  .hero-stat-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--gris);
+    text-transform: uppercase;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .hero-btns {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 1s;
+  }
+
+  .btn-or {
+    padding: 13px 32px;
+    background: var(--or);
+    color: var(--noir);
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+  }
+
+  .btn-or:hover { background: var(--or-pale); transform: translateY(-1px); }
+
+  .btn-contour {
+    padding: 13px 32px;
+    background: transparent;
+    color: var(--or);
+    border: 0.5px solid var(--or);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+  }
+
+  .btn-contour:hover { background: rgba(201,168,76,0.08); transform: translateY(-1px); }
+
+  /* SEPARATEUR */
+  .sep {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 48px;
+    margin: 0 0 64px;
+  }
+
+  .sep-line { flex: 1; height: 0.5px; background: #1e1e1e; }
+  .sep-diamant {
+    width: 8px; height: 8px;
+    background: var(--or);
+    transform: rotate(45deg);
+    opacity: 0.6;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 80px 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-tag {
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: var(--or);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .section-tag::after {
+    content: '';
+    flex: 0 0 40px;
+    height: 0.5px;
+    background: var(--or);
+    opacity: 0.4;
+  }
+
+  .section-titre {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 300;
+    color: var(--blanc);
+    margin-bottom: 48px;
+    line-height: 1.2;
+  }
+
+  .section-titre em { color: var(--or); font-style: italic; }
+
+  /* CHRONIQUE */
+  .chronique-grid {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .livre-couverture {
+    background: var(--noir-3);
+    border: 0.5px solid #2a2a2a;
+    aspect-ratio: 2/3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 24px;
+    position: relative;
+    text-align: center;
+  }
+
+  .livre-couverture::before {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 0.5px solid rgba(201,168,76,0.2);
+    pointer-events: none;
+  }
+
+  .livre-couverture-titre {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--blanc);
+    line-height: 1.3;
+  }
+
+  .livre-couverture-auteur {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--or);
+    text-transform: uppercase;
+  }
+
+  .livre-couverture-ornement {
+    color: var(--or);
+    font-size: 28px;
+    opacity: 0.5;
+  }
+
+  .livre-infos { padding-top: 8px; }
+
+  .livre-badges {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    padding: 4px 14px;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .badge-rouge { background: rgba(139,26,26,0.2); color: #e07070; border: 0.5px solid rgba(139,26,26,0.5); }
+  .badge-or { background: rgba(201,168,76,0.1); color: var(--or); border: 0.5px solid rgba(201,168,76,0.3); }
+
+  .livre-desc {
+    font-size: 14px;
+    color: #888;
+    line-height: 1.9;
+    margin-bottom: 28px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-style: italic;
+    font-weight: 300;
+    border-left: 2px solid var(--rouge);
+    padding-left: 20px;
+  }
+
+  .livre-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .livre-meta-item {
+    background: var(--noir-3);
+    border: 0.5px solid #222;
+    padding: 14px 16px;
+  }
+
+  .livre-meta-label { font-size: 10px; letter-spacing: 0.2em; color: var(--gris); text-transform: uppercase; margin-bottom: 4px; }
+  .livre-meta-val { font-size: 14px; color: var(--blanc); font-family: 'Cormorant Garamond', serif; }
+
+  /* QUIZ */
+  .quiz-container {
+    background: var(--noir-2);
+    border: 0.5px solid #222;
+    padding: 40px;
+    position: relative;
+  }
+
+  .quiz-container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--rouge);
+  }
+
+  .quiz-question {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 300;
+    color: var(--blanc);
+    margin-bottom: 8px;
+  }
+
+  .quiz-progress {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--gris);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  .quiz-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .quiz-opt {
+    padding: 14px 18px;
+    background: var(--noir-3);
+    border: 0.5px solid #2a2a2a;
+    font-size: 13px;
+    color: #888;
+    cursor: pointer;
+    text-align: left;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.2s;
+    font-weight: 300;
+  }
+
+  .quiz-opt:hover {
+    border-color: var(--or);
+    color: var(--or);
+    background: rgba(201,168,76,0.05);
+  }
+
+  .quiz-opt.selected {
+    border-color: var(--rouge);
+    color: var(--blanc);
+    background: rgba(139,26,26,0.15);
+  }
+
+  .quiz-nav { display: flex; justify-content: flex-end; }
+
+  /* RESULTAT QUIZ */
+  .quiz-resultat {
+    display: none;
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  .quiz-resultat-nom {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px;
+    font-weight: 300;
+    color: var(--or);
+    margin-bottom: 8px;
+  }
+
+  .quiz-resultat-desc {
+    font-size: 14px;
+    color: #888;
+    line-height: 1.8;
+    max-width: 500px;
+    margin: 0 auto 24px;
+  }
+
+  /* CONTACT */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .contact-texte {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 300;
+    color: #888;
+    line-height: 1.9;
+  }
+
+  .contact-form { display: flex; flex-direction: column; gap: 12px; }
+
+  .contact-form input,
+  .contact-form textarea {
+    background: var(--noir-3);
+    border: 0.5px solid #2a2a2a;
+    padding: 13px 16px;
+    color: var(--blanc);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.3s;
+    resize: none;
+  }
+
+  .contact-form input::placeholder,
+  .contact-form textarea::placeholder { color: #444; }
+
+  .contact-form input:focus,
+  .contact-form textarea:focus { border-color: var(--or); }
+
+  /* FOOTER */
+  footer {
+    border-top: 0.5px solid #1a1a1a;
+    padding: 32px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--noir);
+  }
+
+  .footer-nom {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 300;
+    color: #444;
+  }
+
+  .footer-nom span { color: var(--or); }
+
+  .footer-liens {
+    display: flex;
+    gap: 24px;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: #444;
+    text-transform: uppercase;
+  }
+
+  .footer-liens a { color: #444; text-decoration: none; transition: color 0.3s; }
+  .footer-liens a:hover { color: var(--or); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    section { padding: 60px 20px; }
+    .sep { padding: 0 20px; }
+    .chronique-grid { grid-template-columns: 1fr; }
+    .livre-couverture { max-width: 240px; margin: 0 auto; }
+    .quiz-options { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    footer { padding: 24px 20px; flex-direction: column; gap: 16px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Marly <span>Mbaye</span></div>
+  <ul class="nav-links">
+    <li><a href="#chronique">Ma chronique</a></li>
+    <li><a href="#quiz">Quiz</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <div class="hero-ornement">Dark Romance · Mafia · Sénégal</div>
+    <h1 class="hero-titre">Bienvenue dans<br>l'univers de <em>Marly</em></h1>
+    <p class="hero-sous-titre">Des histoires où le danger a le visage de l'amour.</p>
+    <div class="hero-stats">
+      <div>
+        <span class="hero-stat-num">65k</span>
+        <span class="hero-stat-label">Lectures</span>
+      </div>
+      <div>
+        <span class="hero-stat-num">1</span>
+        <span class="hero-stat-label">Chronique</span>
+      </div>
+      <div>
+        <span class="hero-stat-num">∞</span>
+        <span class="hero-stat-label">Émotions</span>
+      </div>
+    </div>
+    <div class="hero-btns">
+      <a href="#chronique" class="btn-or">Lire la chronique</a>
+      <a href="#quiz" class="btn-contour">Faire le quiz</a>
+    </div>
+  </div>
+</div>
+
+<div class="sep"><div class="sep-line"></div><div class="sep-diamant"></div><div class="sep-line"></div></div>
+
+<!-- CHRONIQUE -->
+<section id="chronique">
+  <div class="reveal">
+    <div class="section-tag">Ma chronique</div>
+    <h2 class="section-titre">Au sein de la <em>Mafia</em></h2>
+  </div>
+  <div class="chronique-grid reveal">
+    <div class="livre-couverture">
+      <div class="livre-couverture-ornement">✦</div>
+      <div class="livre-couverture-titre">Au sein<br>de la Mafia</div>
+      <div class="livre-couverture-auteur">Marly Mbaye</div>
+      <div class="livre-couverture-ornement">✦</div>
+    </div>
+    <div class="livre-infos">
+      <div class="livre-badges">
+        <span class="badge badge-rouge">Dark romance</span>
+        <span class="badge badge-or">Mafia</span>
+        <span class="badge badge-or">Terminée</span>
+      </div>
+      <p class="livre-desc">
+        "Elle ne cherchait pas la violence. Mais lui, il l'avait trouvée."
+      </p>
+      <div class="livre-meta">
+        <div class="livre-meta-item">
+          <div class="livre-meta-label">Lectures</div>
+          <div class="livre-meta-val">65 000+</div>
+        </div>
+        <div class="livre-meta-item">
+          <div class="livre-meta-label">Genre</div>
+          <div class="livre-meta-val">Dark Romance</div>
+        </div>
+        <div class="livre-meta-item">
+          <div class="livre-meta-label">Plateforme</div>
+          <div class="livre-meta-val">Wattpad</div>
+        </div>
+        <div class="livre-meta-item">
+          <div class="livre-meta-label">Statut</div>
+          <div class="livre-meta-val">En ligne</div>
+        </div>
+      </div>
+      <a href="https://www.wattpad.com" target="_blank" class="btn-or" style="display:inline-block;">Lire sur Wattpad →</a>
+    </div>
+  </div>
+</section>
+
+<div class="sep"><div class="sep-line"></div><div class="sep-diamant"></div><div class="sep-line"></div></div>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="reveal">
+    <div class="section-tag">Interactif</div>
+    <h2 class="section-titre">Quel personnage <em>es-tu ?</em></h2>
+  </div>
+  <div class="quiz-container reveal">
+    <div id="quiz-body">
+      <div class="quiz-progress" id="quiz-prog">Question 1 sur 4</div>
+      <p class="quiz-question" id="quiz-q">Face à une trahison, tu...</p>
+      <div class="quiz-options" id="quiz-opts"></div>
+      <div class="quiz-nav">
+        <button class="btn-or" id="quiz-next" onclick="nextQuestion()" style="opacity:0.3;cursor:not-allowed;">Suivant →</button>
+      </div>
+    </div>
+    <div class="quiz-resultat" id="quiz-res">
+      <div style="font-size:32px;color:var(--or);margin-bottom:16px;">✦</div>
+      <div class="quiz-resultat-nom" id="res-nom"></div>
+      <p class="quiz-resultat-desc" id="res-desc"></p>
+      <button class="btn-contour" onclick="resetQuiz()">Recommencer</button>
+    </div>
+  </div>
+</section>
+
+<div class="sep"><div class="sep-line"></div><div class="sep-diamant"></div><div class="sep-line"></div></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="reveal">
+    <div class="section-tag">Me contacter</div>
+    <h2 class="section-titre">Laisse-moi un <em>message</em></h2>
+  </div>
+  <div class="contact-grid reveal">
+    <div>
+      <p class="contact-texte">
+        Tu as aimé la chronique ? Tu veux me partager ton avis, me poser une question sur l'histoire, ou juste dire bonjour — je lis tous les messages.
+      </p>
+      <br>
+      <p class="contact-texte" style="color:#555;">
+        Tu peux aussi me suivre sur Wattpad pour ne pas manquer la prochaine chronique.
+      </p>
+    </div>
+    <div class="contact-form">
+      <input type="text" placeholder="Ton prénom">
+      <input type="email" placeholder="Ton email (optionnel)">
+      <textarea rows="5" placeholder="Ton message..."></textarea>
+      <button class="btn-or" style="align-self:flex-start;">Envoyer →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-nom">© 2026 <span>Marly Mbaye</span></div>
+  <div class="footer-liens">
+    <a href="https://www.wattpad.com" target="_blank">Wattpad</a>
+    <a href="#contact">Contact</a>
+    <a href="#">Haut de page</a>
+  </div>
+</footer>
+
+<script>
+const questions = [
+  {
+    q: "Face à une trahison, tu...",
+    opts: ["Gardes le silence et tu planifies", "Riposes immédiatement, sans réfléchir", "Cherches à comprendre d'abord", "Coupes les ponts sans un mot"]
+  },
+  {
+    q: "Ton rapport au pouvoir, c'est...",
+    opts: ["Tu le prends sans le demander", "Tu le refuses, trop dangereux", "Tu le partages avec ceux qui méritent", "Tu l'utilises pour protéger"]
+  },
+  {
+    q: "En amour, tu es plutôt...",
+    opts: ["Froid(e) en surface, brûlant(e) en dedans", "Tout ou rien, jamais entre-deux", "Patient(e), tu attends le bon moment", "Méfiant(e), tu laisses rarement entrer"]
+  },
+  {
+    q: "Ton arme secrète, c'est...",
+    opts: ["Ton intelligence", "Ton charme", "Ta loyauté", "Ta capacité à disparaître"]
+  }
+];
+
+const personnages = [
+  { nom: "Le Chef", desc: "Tu es le boss — calme, calculateur, et redoutable. Tu ne parles pas fort, tu n'en as pas besoin. Tout le monde sait qui tu es." },
+  { nom: "La Combattante", desc: "Tu ne recules devant rien. Ta force est viscérale, presque instinctive. Tu protèges ceux que tu aimes avec une férocité rare." },
+  { nom: "Le Stratège", desc: "Tu es l'ombre dans la pièce — celle qui observe, qui analyse, qui joue deux coups d'avance. Indispensable et discret(e)." },
+  { nom: "La Flamme", desc: "Tu es ce point de lumière dans un monde sombre. Tu changes les gens rien qu'en étant là — et parfois, tu te brûles toi-même." }
+];
+
+let current = 0;
+let answers = [];
+let selected = null;
+
+function renderQuestion() {
+  const q = questions[current];
+  document.getElementById('quiz-prog').textContent = `Question ${current + 1} sur ${questions.length}`;
+  document.getElementById('quiz-q').textContent = q.q;
+  const optsEl = document.getElementById('quiz-opts');
+  optsEl.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.textContent = opt;
+    btn.onclick = () => selectOpt(i, btn);
+    optsEl.appendChild(btn);
+  });
+  selected = null;
+  const next = document.getElementById('quiz-next');
+  next.style.opacity = '0.3';
+  next.style.cursor = 'not-allowed';
+}
+
+function selectOpt(i, btn) {
+  document.querySelectorAll('.quiz-opt').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selected = i;
+  const next = document.getElementById('quiz-next');
+  next.style.opacity = '1';
+  next.style.cursor = 'pointer';
+}
+
+function nextQuestion() {
+  if (selected === null) return;
+  answers.push(selected);
+  current++;
+  if (current < questions.length) {
+    renderQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  const sum = answers.reduce((a, b) => a + b, 0);
+  const idx = sum % personnages.length;
+  const p = personnages[idx];
+  document.getElementById('quiz-body').style.display = 'none';
+  const res = document.getElementById('quiz-res');
+  res.style.display = 'block';
+  document.getElementById('res-nom').textContent = p.nom;
+  document.getElementById('res-desc').textContent = p.desc;
+}
+
+function resetQuiz() {
+  current = 0;
+  answers = [];
+  selected = null;
+  document.getElementById('quiz-body').style.display = 'block';
+  document.getElementById('quiz-res').style.display = 'none';
+  renderQuestion();
+}
+
+renderQuestion();
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
